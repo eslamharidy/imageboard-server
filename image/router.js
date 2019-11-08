@@ -2,6 +2,8 @@ const {Router} = require('express')
 const Image = require('./model')
 const router = new Router()
 
+
+//Get all images
 router.get('/image', (req, res, next) => {
     const limit = req.query.limit || 5
     const offset = req.query.offset || 0
@@ -11,5 +13,12 @@ router.get('/image', (req, res, next) => {
       .catch(error => next(error))
   })
 
+
+  //add image
+router.post('/image', (req,res,next) => {
+    Image.create(req.body)
+    .then(image => res.send(image))
+    .catch(next)
+})
 
   module.exports= router
