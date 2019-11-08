@@ -2,7 +2,7 @@ const { Router } = require('express')
 const { toJWT, toData } = require('./jwt')
 const User = require('../user/model')
 const auth = require('./middleware')
-const bcrypt = require('bcrypt')
+const bcryptjs = require('bcryptjs')
 
 const router = new Router()
 
@@ -31,7 +31,7 @@ router.post('/login', (req, res) => {
         }
 
         // 2. use bcrypt.compareSync to check the password against the stored hash
-        else if (bcrypt.compareSync(req.body.password, entity.password)) {
+        else if (bcryptjs.compareSync(req.body.password, entity.password)) {
 
           // 3. if the password is correct, return a JWT with the userId of the user (user.id)
           res.send({
